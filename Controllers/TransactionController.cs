@@ -51,18 +51,16 @@ namespace EasyGames.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> PutTransaction(int id, Transaction transaction)
+        [HttpPut("{transactionID}")]
+        public async Task<ActionResult> PutTransaction(int transactionID, Transaction transaction)
         {
             var logic = new DashboardLogic(_configuration, _context);
 
-            if (transaction.TransactionID != id)
-            {
-                return BadRequest("Something went wrong, Couldn't find and edit the transaction being parsed ");
-            }
+            
 
             var transactionParams = JsonConvert.DeserializeObject<TransactionDTO>(JsonConvert.SerializeObject(transaction));
             transactionParams!.Delete = false;
+            transactionParams.TransactionID = transactionID;
             var results = await logic.UpsertTransaction(transactionParams);
 
             if (!results)
