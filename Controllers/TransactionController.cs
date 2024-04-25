@@ -72,29 +72,29 @@ namespace EasyGames.Controllers
 
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteTransaction(int id)
-        {
-            var logic = new DashboardLogic(_configuration, _context);
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult> DeleteTransaction(int id)
+        //{
+        //    var logic = new DashboardLogic(_configuration, _context);
 
-            var transactionS = await logic.GetTransaction($"TransactionID = {id}");
+        //    var transactionS = await logic.GetTransaction($"TransactionID = {id}");
 
-            if (transactionS == null || !transactionS.Any())
-            {
-                return BadRequest("Something went wrong, Couldn't find and delete the transaction being parsed");
-            }
+        //    if (transactionS == null || !transactionS.Any())
+        //    {
+        //        return BadRequest("Something went wrong, Couldn't find and delete the transaction being parsed");
+        //    }
 
-            var transaction = transactionS.First();
+        //    var transaction = transactionS.First();
 
-            var transactionParams = JsonConvert.DeserializeObject<TransactionDTO>(JsonConvert.SerializeObject(transaction));
-            transactionParams!.Delete = true;
-            var results = await logic.UpsertTransaction(transactionParams);
+        //    var transactionParams = JsonConvert.DeserializeObject<TransactionDTO>(JsonConvert.SerializeObject(transaction));
+        //    transactionParams!.Delete = true;
+        //    var results = await logic.UpsertTransaction(transactionParams);
 
-            if (!results)
-            {
-                return BadRequest("Something went wrong, Please contact your administrator");
-            }
-            return Ok(results);
-        }
+        //    if (!results)
+        //    {
+        //        return BadRequest("Something went wrong, Please contact your administrator");
+        //    }
+        //    return Ok(results);
+        //}
     }
 }
